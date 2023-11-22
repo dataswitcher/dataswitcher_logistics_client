@@ -1,0 +1,1 @@
+docker run -it --rm --network host --entrypoint /bin/sh dataswitcher_logistics_client

@@ -1,0 +1,52 @@
+# phpstorm project files
+.idea
+*.iml
+
+# netbeans project files
+nbproject
+
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# sublime text project / workspace files
+*.sublime-project
+*.sublime-workspace
+
+# visual studio code project files
+.vscode
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+/vendor
+
+# composer itself is not needed
+composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+# phpunit
+phpunit.phar
+.phpunit.result.cache
+
+# php-cs-fixer cache file
+.php_cs.cache
+.php-cs-fixer.cache
+.php-cs-fixer.php
+
+# composer-git-hooks lock file
+cghooks.lock
+
+# NPM packages
+/node_modules
+.env.testing
+
+# xdebug
+xdebug
+
+#custom
+.env
