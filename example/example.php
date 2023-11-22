@@ -28,10 +28,10 @@ $client = generateClient();
 // var_dump($client->administrationsAll());
 
 // Get one administration.
-// $administrationId= '1';
+// $administrationId= 'aaaa-1111-aaaa-1111';
 // var_dump($client->administrationFindOne($administrationId));
 
 // Change administration state.
-// $administrationId = '1';
+// $administrationId = 'aaaa-1111-aaaa-1111';
 // $state = 'data_requested';
 // var_dump($client->workflowChangeState($administrationId, $state));
