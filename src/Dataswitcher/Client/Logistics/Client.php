@@ -20,15 +20,13 @@ class Client
     private ApiCaller $apiCaller;
     private ?LogisticsRequest $request = null;
 
-    private function __construct(
-        ApiCaller $apiCaller
-    ) {
+    private function __construct(ApiCaller $apiCaller)
+    {
         $this->apiCaller = $apiCaller;
     }
 
-    public static function make(
-        ApiCaller $apiCaller
-    ): Client {
+    public static function make(ApiCaller $apiCaller): Client
+    {
         return new self($apiCaller);
     }
 

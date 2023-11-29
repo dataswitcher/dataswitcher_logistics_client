@@ -6,7 +6,6 @@ use Dataswitcher\Client\Logistics\Request\Request;
 use GuzzleHttp\Psr7\Response;
 
 beforeEach(function () {
-
     // Common configuration of mocks
     $this->logisticsBaseUri = 'http://example.com';
     $this->auth0Options = [
@@ -43,13 +42,35 @@ it('throws exception if any Auth0 option is missing', function () {
     expect(function () {
         new ApiCaller(
             'http://example.com',
+            []
+        );
+    })->toThrow(RuntimeException::class, 'Client failed: Missing or empty keys: domain, client_id, client_secret, audience.');
+});
+
+it('throws exception if Auth0 audience option is missing', function () {
+    expect(function () {
+        new ApiCaller(
+            'http://example.com',
             [
                 'domain' => 'test-domain.auth0.com',
                 'client_id' => 'test-client-id',
                 'client_secret' => 'test-client-secret',
             ]
         );
-    })->toThrow(RuntimeException::class, 'Client failed: you need to provide all Auth0 options.');
+    })->toThrow(RuntimeException::class, 'Client failed: Missing or empty keys: audience.');
+});
+
+it('throws exception if Auth0 domain option is empty and audience is not set', function () {
+    expect(function () {
+        new ApiCaller(
+            'http://example.com',
+            [
+                'domain' => '',
+                'client_id' => 'test-client-id',
+                'client_secret' => 'test-client-secret',
+            ]
+        );
+    })->toThrow(RuntimeException::class, 'Client failed: Missing or empty keys: domain, audience.');
 });
 
 it('throws exception if request class does not exist', function () {
@@ -62,13 +83,10 @@ it('throws exception if request class does not exist', function () {
 });
 
 it('does a request correctly', function () {
-    // Arrange
     $client = Client::make($this->apiCallerMock);
     $client->setRequestInstance($this->requestMock);
 
-    // Act
     $result = $client->administrationFindOne(20, 10);
 
-    // Assert
     expect($result)->toBeInstanceOf(Response::class);
 });
