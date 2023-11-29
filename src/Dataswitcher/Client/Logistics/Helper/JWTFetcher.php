@@ -57,6 +57,7 @@ class JWTFetcher
      */
     public function fetchToken()
     {
+        $this->cache->delete(self::LOGISTICS_ACCESS_TOKEN);
         $accessToken = $this->cache->get(
             self::LOGISTICS_ACCESS_TOKEN,
             function (ItemInterface $item) {
