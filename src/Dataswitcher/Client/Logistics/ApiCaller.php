@@ -17,11 +17,18 @@ class ApiCaller
             throw new RuntimeException('Client failed: you need to provide a server url.');
         }
 
-        if (!isset($auth0Options['domain']) ||
-            !isset($auth0Options['client_id']) ||
-            !isset($auth0Options['client_secret']) ||
-            !isset($auth0Options['audience'])) {
-            throw new RuntimeException('Client failed: you need to provide all Auth0 options.');
+        $requiredKeys = ['domain', 'client_id', 'client_secret', 'audience'];
+        $missingKeys = [];
+
+        foreach ($requiredKeys as $key) {
+            if (!isset($auth0Options[$key]) || empty($auth0Options[$key])) {
+                $missingKeys[] = $key;
+            }
+        }
+
+        if (!empty($missingKeys)) {
+            $errorMessage = 'Client failed: Missing or empty keys: ' . implode(', ', $missingKeys) . '.';
+            throw new RuntimeException($errorMessage);
         }
 
         $this->baseUri = $baseUri;

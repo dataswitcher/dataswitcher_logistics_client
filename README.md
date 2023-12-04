@@ -11,16 +11,18 @@ Installing this Dataswitcher client for PHP can be done through Composer.  You n
 ```json
 {
   "repositories": [
-    { 
+    {
       "type": "vcs",
       "url": "https://github.com/dataswitcher/dataswitcher_logistics_client"
     }
   ],
   "require": {
-    "dataswitcher/dataswitcher_logistics_client": "^2.0"
+    "dataswitcher/dataswitcher_logistics_client": "^1.0"
   }
 }
 ```
+
+note: Use updated github tag version on "require" key.
 
 ## Usage
 
@@ -43,4 +45,9 @@ Then just run the command.
 ```sh
 ./bin/tests.sh
 ```
-It only works in local environment.
+
+It only works in local environment, if you have any problem running the tests,  use this other script that adds the local DNS host mapping to `docker-run` command:
+
+```sh
+./bin/tests_local.sh
+```
