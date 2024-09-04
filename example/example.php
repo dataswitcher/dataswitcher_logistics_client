@@ -24,14 +24,17 @@ $client = generateClient();
 
 // Uncomment what you need.
 
-// Get all administrations.
-// var_dump($client->administrationsAll());
+// Get all administrations with pagination support
+// var_dump($client->administrationsAll(['pageSize' => 10, 'pageNumber' => 1]));
 
 // Get one administration.
-// $administrationId= 'aaaa-1111-aaaa-1111';
+// $administrationId = 'aaaa-1111-aaaa-1111';
 // var_dump($client->administrationFindOne($administrationId));
 
 // Change administration state.
 // $administrationId = 'aaaa-1111-aaaa-1111';
 // $state = 'data_requested';
 // var_dump($client->workflowChangeState($administrationId, $state));
+
+// Get report for Migration Success
+// var_dump($client->reportsMigrationSuccess(['date_start' => '2024-01-01', 'date_end' => '2024-03-01', 'tenant_id' => 1]));
