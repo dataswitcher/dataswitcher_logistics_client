@@ -21,18 +21,25 @@ class All extends AbstractRequest implements Request
 
     protected string $resourceClassName = Administration::class;
 
-    protected int $pageLimit;
-
-    protected int $pageOffset;
+    protected array $pagination;
 
     /**
      * All constructor.
-     * @param  array  $parameters
+     *
+     * @param array $parameters {
+     *     Filters to apply when retrieving all administrations.
+     *
+     *     @type int $pageNumber    Optional. Set the page Number. If omitted, 1 is applied by default.
+     *     @type int $pageSize      Optional. Set the page Size, If omitted, 50 itens are applied by default.
+     * }
      */
     public function __construct($parameters = [])
     {
-        $this->pageLimit = $parameters['pageLimit'] ?? 15;
-        $this->pageOffset = $parameters['pageOffset'] ?? 0;
+        // transform filter into JSON:API standard filter format ['filter[<key>]' => <value>]
+        $this->pagination = [
+            'page[number]'  => $parameters['pageNumber'] ?? 1,
+            'page[size]'    => $parameters['pageSize'] ?? 50,
+        ];
     }
 
     /**
@@ -50,8 +57,8 @@ class All extends AbstractRequest implements Request
             $this->documentClient,
             new DocumentFactory()
         );
-        $parameters = ['page' => ['limit' => $this->pageLimit, 'offset' => $this->pageOffset]];
-        $repositoryResult = $administrationRepository->all($parameters);
+
+        $repositoryResult = $administrationRepository->all($this->pagination);
 
         // iterate and hydrate
         foreach ($repositoryResult->getData() as $item) {

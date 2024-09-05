@@ -38,7 +38,10 @@ abstract class AbstractRequest
             [
                 'base_uri' => $baseUri.'/'.$this->apiVersion.'/',
                 'headers' => [
-                    'Authorization' => 'Bearer '.$tokenFetcher->fetchToken()
+                    'Authorization' => 'Bearer '.$tokenFetcher->fetchToken(),
+                    'Content-Type' => 'application/vnd.api+json',
+                    'Accept' => 'application/vnd.api+json'
+
                 ]
             ]
         );

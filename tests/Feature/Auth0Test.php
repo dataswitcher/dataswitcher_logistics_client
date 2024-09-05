@@ -28,9 +28,8 @@ beforeEach(function () {
 it('Auth0 invalid credentials', function () {
 
     try {
-        $response = $this->auth0ErrorClient->administrationsAll([]);
+        $response = $this->auth0ErrorClient->administrationFindOne(1);
     } catch (RequestException $e) {
-
         expect($e->getResponse()->getStatusCode())->toBe(401);
         expect($e->getResponse()->getBody()->getContents())->toContain('Unauthorized');
 

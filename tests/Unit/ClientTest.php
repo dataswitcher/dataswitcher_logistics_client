@@ -86,7 +86,7 @@ it('does a request correctly', function () {
     $client = Client::make($this->apiCallerMock);
     $client->setRequestInstance($this->requestMock);
 
-    $result = $client->administrationFindOne(20, 10);
+    $result = $client->administrationFindOne(20);
 
     expect($result)->toBeInstanceOf(Response::class);
 });
