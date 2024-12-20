@@ -40,5 +40,3 @@ it('returns a response from method reportsMigrationSuccess', function () {
     expect($filtersMeta['date_start'] ?? null)->toEqual($filters['date_start']);
     expect($filtersMeta['date_end'] ?? null)->toEqual($filters['date_end']);
 });
-
-
