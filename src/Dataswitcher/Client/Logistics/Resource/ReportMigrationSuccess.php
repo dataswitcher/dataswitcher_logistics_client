@@ -38,4 +38,23 @@ class ReportMigrationSuccess extends BaseResource
     {
         return $this->getAttribute('failed_count');
     }
+
+    public function getSuccessfulAutomatedCount(): int
+    {
+        return $this->getAttribute('successful_automated_count');
+    }
+
+    public function getSuccessfulManualCount(): int
+    {
+        return $this->getAttribute('successful_manual_count');
+    }
+
+    public function getAdministrationIdsBag(): ?array
+    {
+        if (!$this->hasAttribute('ids_bag')) {
+            return null;
+        }
+        // Convert the object to an array(recursive) using JSON encoding and decoding
+        return json_decode(json_encode($this->getAttribute('ids_bag')), true);
+    }
 }
