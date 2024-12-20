@@ -21,6 +21,7 @@ class Client
 {
     private ApiCaller $apiCaller;
     private ?LogisticsRequest $request = null;
+    private ?string $requestKey = null;
 
     private function __construct(ApiCaller $apiCaller)
     {
@@ -61,8 +62,11 @@ class Client
 
     private function buildRequestInstance($requestClass, $arguments)
     {
-        if (!$this->request) {
+        $key = $requestClass . ':' . md5(serialize($arguments));
+
+        if ($this->request === null || $this->requestKey !== $key) {
             $this->request = new $requestClass(...$arguments);
+            $this->requestKey = $key;
         }
 
         return $this->request;

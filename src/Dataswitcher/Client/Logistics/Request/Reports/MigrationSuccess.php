@@ -2,15 +2,16 @@
 
 namespace Dataswitcher\Client\Logistics\Request\Reports;
 
-use Swis\JsonApi\Client\Meta;
-use Swis\JsonApi\Client\ItemHydrator;
-use Swis\JsonApi\Client\DocumentFactory;
-use GuzzleHttp\Exception\RequestException;
-use Dataswitcher\Client\Logistics\Request\Request;
-use Dataswitcher\Client\Logistics\Request\AbstractRequest;
 use Dataswitcher\Client\Logistics\Helper\ApiExceptionHandler;
-use Dataswitcher\Client\Logistics\Resource\ReportMigrationSuccess;
 use Dataswitcher\Client\Logistics\Repository\MigrationSuccessRepository;
+use Dataswitcher\Client\Logistics\Request\AbstractRequest;
+use Dataswitcher\Client\Logistics\Request\Request;
+use Dataswitcher\Client\Logistics\Resource\ReportMigrationSuccess;
+use Exception;
+use GuzzleHttp\Exception\RequestException;
+use Swis\JsonApi\Client\DocumentFactory;
+use Swis\JsonApi\Client\ItemHydrator;
+use Swis\JsonApi\Client\Meta;
 
 class MigrationSuccess extends AbstractRequest implements Request
 {
@@ -31,6 +32,7 @@ class MigrationSuccess extends AbstractRequest implements Request
      *     @type int $tenant_id     Optional. Filter by tenant ID. If omitted, '0' is applied (all).
      *     @type int $package_from  Optional. Filter by the starting package number. If omitted, '0' is applied (all).
      *     @type int $package_to    Optional. Filter by the ending package number. If omitted, '0' is applied (all).
+     *     @type bool $with_ids     Optional. Adds Administration IDs Bag Data. If omitted, false is applied.
      * }
      */
     public function __construct(array $filters)
@@ -42,6 +44,7 @@ class MigrationSuccess extends AbstractRequest implements Request
             'filter[tenant_id]'     => (int) ($filters['tenant_id'] ?? 0),
             'filter[package_from]'  => (int) ($filters['package_from'] ?? 0),
             'filter[package_to]'    => (int) ($filters['package_to'] ?? 0),
+            'filter[with_ids]'      => (bool) ($filters['with_ids'] ?? false),
         ];
     }
 
@@ -62,7 +65,7 @@ class MigrationSuccess extends AbstractRequest implements Request
             return $migrationSuccessData;
         } catch (RequestException $e) {
             ApiExceptionHandler::handleRequestException($e);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ApiExceptionHandler::handleGeneralException($e);
         }
 
