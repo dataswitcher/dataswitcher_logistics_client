@@ -1,5 +1,5 @@
 # Use the official PHP image as the base image
-FROM php:8.0-cli-alpine
+FROM php:8.2-cli-alpine
 
 # Install required packages
 RUN apk update && apk add --no-cache curl git
