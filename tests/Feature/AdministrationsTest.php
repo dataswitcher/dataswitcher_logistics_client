@@ -25,14 +25,13 @@ beforeEach(function () {
 
 it('returns a response from method administrationsAll', function () {
 
-    $response = $this->client->administrationsAll([]);
+    $paging = ['pageNumber' => 1, 'pageSize' => 20];
+    $response = $this->client->administrationsAll($paging);
 
     if ($response) {
+        expect($response)->not->toBeNull();
         expect(count($response))->toBeGreaterThan(0);  // if already has administrations on API
     } else {
         expect($response)->toBeEmpty()->toBeArray();    // if no administration on API
     }
-
 });
-
-

@@ -36,7 +36,6 @@ it('Auth0 invalid credentials', function () {
         $auth0ErrorClient->administrationsAll([]);
 
     } catch (RequestException $e) {
-
         expect($e->getResponse()->getStatusCode())->toBe(401);
         expect($e->getResponse()->getBody()->getContents())->toContain('Unauthorized');
 

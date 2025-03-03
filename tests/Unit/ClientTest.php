@@ -20,7 +20,7 @@ beforeEach(function () {
     $this->apiCallerMock->shouldReceive('getBaseUri')->andReturn(
         'https://example.com'
     );
-    $this->apiCallerMock->shouldReceive('getAuth0Options')->andReturn(['auth0_options']);
+    $this->apiCallerMock->shouldReceive('getAuth0Options')->andReturn($this->auth0Options);
     $this->apiCallerMock->shouldReceive('call')->andReturn(new Response(200, [], json_encode(['result'])));
 });
 
@@ -86,7 +86,7 @@ it('does a request correctly', function () {
     $client = Client::make($this->apiCallerMock);
     $client->setRequestInstance($this->requestMock);
 
-    $result = $client->administrationFindOne(20, 10);
+    $result = $client->administrationFindOne(20);
 
     expect($result)->toBeInstanceOf(Response::class);
 });

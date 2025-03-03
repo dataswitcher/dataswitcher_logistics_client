@@ -10,7 +10,7 @@
   "require": {
     "php": "~8.0",
     "guzzlehttp/guzzle": "~7.0",
-    "symfony/cache": "^5.2",
+    "symfony/cache": "^7.0",
     "swisnl/json-api-client": "^2.3.1",
     "php-http/guzzle7-adapter": "1.0",
     "http-interop/http-factory-guzzle": "^1.2"

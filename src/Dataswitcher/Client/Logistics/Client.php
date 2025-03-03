@@ -12,13 +12,16 @@ use RuntimeException;
  * Class Client
  * @package Dataswitcher\Client\Logistics
  *
- * @method administrationsAll($pageLimit = 15, $pageOffset = 0)
- * @method administrationFindOne($id)
+ * @method administrationsAll(array $pagination) Retrieves All Administrations.
+ * @method administrationFindOne(string $uiid) Get a single Administration.
+ * @method reportsMigrationSuccess(array $filters) Retrieves migration success reports based on the given filters.
+ *
  */
 class Client
 {
     private ApiCaller $apiCaller;
     private ?LogisticsRequest $request = null;
+    private ?string $requestKey = null;
 
     private function __construct(ApiCaller $apiCaller)
     {
@@ -59,8 +62,11 @@ class Client
 
     private function buildRequestInstance($requestClass, $arguments)
     {
-        if (!$this->request) {
+        $key = $requestClass . ':' . md5(serialize($arguments));
+
+        if ($this->request === null || $this->requestKey !== $key) {
             $this->request = new $requestClass(...$arguments);
+            $this->requestKey = $key;
         }
 
         return $this->request;
